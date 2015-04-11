@@ -10,11 +10,15 @@ set swapfile
 set dir=/tmp/
 set pastetoggle=<F2>
 set clipboard=unnamed
+set t_Co=256
 
 let mapleader=","
 
 syntax on
 syntax enable
+
+colorscheme molokai
+" let g:molokai_original = 1
 
 " tab settings
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -41,11 +45,15 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'valloric/YouCompleteMe'
+Plugin 'fatih/vim-go'
+Plugin 'bling/vim-airline'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -59,25 +67,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 execute pathogen#infect()
 call pathogen#helptags()
 
-" syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_checker_args='--ignore=E501'
-
-" airline settings
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#bufferline#enabled = 1
-
-"let g:airline#left_sep = '|'
-"let g:airline#left_alt_sep = '|'
-
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
@@ -85,10 +74,40 @@ let NERDTreeIgnore = ['\.pyc$']
 " Quit if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" syntastic settings
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" 
+" let g:syntastic_always_populate_loc_list = 0
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_checker_args='--ignore=E501'
+
+" airline settings
+let g:airline_powerline_fonts = 0
+let g:airline_theme='luna'
+let g:airline_left_sep=''
+let g:airline_righ_sep=''
+let g:airline_left_alt_sep= '|'
+let g:airline_right_alt_sep= '|'
+
 " python mode
 "let g:pymode_folding = 0
 "let g:pymode_options_colorcolumn = 0
 "let g:pymode_syntax = 1
 "let g:pymode_syntax_all = 1
 "let g:pymode_lint = 0
-"
+
+" Tag manager
+nmap <F8> :TagbarToggle<CR>
+
+" Vim-go syntax highlighting
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
