@@ -1,0 +1,7 @@
+[user]
+	email = zunayed@gmail.com
+	name = Zunayed Ali Morsalin
+[push]
+	default = simple
+[core]
+	editor = mvim -v
