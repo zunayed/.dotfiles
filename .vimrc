@@ -48,6 +48,7 @@ call vundle#begin()
 " call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
+Plugin 'tpope/vim-sensible'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'fatih/vim-go'
@@ -55,18 +56,14 @@ Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'klen/python-mode'
 
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Control P 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
-
-" Pathogen 
-execute pathogen#infect()
-call pathogen#helptags()
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
@@ -96,11 +93,13 @@ let g:airline_left_alt_sep= '|'
 let g:airline_right_alt_sep= '|'
 
 " python mode
-"let g:pymode_folding = 0
-"let g:pymode_options_colorcolumn = 0
-"let g:pymode_syntax = 1
-"let g:pymode_syntax_all = 1
-"let g:pymode_lint = 0
+let g:pymode_folding = 0
+let g:pymode_options_colorcolumn = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_lint = 0
+let g:pymode_doc = 0
+let g:pymode_virtualenv = 1
 
 " Tag manager
 nmap <F8> :TagbarToggle<CR>
