@@ -98,8 +98,10 @@ let g:pymode_options_colorcolumn = 0
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 let g:pymode_lint = 0
+let g:pymode_lint_on_write = 1
 let g:pymode_doc = 0
 let g:pymode_virtualenv = 1
+let g:pymode_rope = 0
 
 " Tag manager
 nmap <F8> :TagbarToggle<CR>
