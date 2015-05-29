@@ -8,7 +8,5 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 
 # zsh autocomplte
-autoload predict-on
-predict-on
-
-ZSH_THEME="zunayed"
+# autoload predict-on
+# predict-on
