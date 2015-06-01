@@ -7,6 +7,3 @@ alias vim='mvim -v'
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-# zsh autocomplte
-# autoload predict-on
-# predict-on
