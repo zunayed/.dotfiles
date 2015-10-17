@@ -17,7 +17,7 @@ apt-get install -y ntp
 apt-get install -y python-dev libxml2 libxml2-dev libxslt-dev
 
 # stuff we dev with
-apt-get install -y git vim nginx supervisor curl wget zsh 
+apt-get install -y git vim nginx supervisor curl wget zsh tmux
 
 # Go + GoVim dependencies
 apt-get install -y exuberant-ctags cmake golang

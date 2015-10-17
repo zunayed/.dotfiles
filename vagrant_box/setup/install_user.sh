@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # pip conf for our private pip repo
-mkdir ~/.pip/
-cp /vagrant_setup/setup/pip.conf ~/.pip/
+# mkdir ~/.pip/
+# cp /vagrant_setup/setup/pip.conf ~/.pip/
 
 # Zsh
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
