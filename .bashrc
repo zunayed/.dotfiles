@@ -10,3 +10,5 @@ export EDITOR="$VISUAL"
 alias gs='git status'
 alias gl='git log'
 
+# remap capslock to control
+setxkbmap -option ctrl:nocaps
