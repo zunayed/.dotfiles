@@ -9,25 +9,44 @@ set backspace=indent,eol,start
 set swapfile
 set dir=/tmp/
 set clipboard=unnamed
-set t_Co=256
 set lazyredraw
 set mouse=a
 set cul
 set ruler
 set wildmenu
 set cursorcolumn
-set term=screen-256color
 set pastetoggle=<F2>
+set spell
+set term=screen-256color
+set t_Co=256
 
 filetype plugin indent on
 
-" Python indentation settings
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set textwidth=80
-set smarttab
-set expandtab
+colorscheme base16-ocean
+let base16colorspace=256  " Access colors present in 256 colorspace
+
+au BufNewFile,BufRead *.html
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
+
+au BufNewFile,BufRead *.js
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=109 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
 
 " When I close a tab, remove the buffer
 set nohidden
@@ -37,6 +56,9 @@ set complete+=kspell
 
 " Leader key to space
 let mapleader = "\<Space>"
+
+" Spellcheker toggle
+:map <F5> :setlocal spell! spelllang=en_us<CR>
 
 " Turn of numbers
 nnoremap <F4> :set nonumber!<CR>
@@ -56,8 +78,6 @@ nore ; :
 
 syntax on
 syntax enable
-
-colorscheme molokai
 
 " spell check settings
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -87,6 +107,9 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'valloric/MatchTagAlways'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-fugitive'
+Plugin 'flazz/vim-colorschemes'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -124,3 +147,9 @@ if 'VIRTUAL_ENV' in os.environ:
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
   execfile(activate_this, dict(__file__=activate_this))
 EOF
+
+" F6 will set breakpoint
+nnoremap <silent> <F6> <esc>oimport pudb; pudb.set_trace()<esc>
+
+" Autoload vimrc file
+autocmd! bufwritepost .vimrc source %
