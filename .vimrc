@@ -110,6 +110,8 @@ Plugin 'valloric/MatchTagAlways'
 Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-fugitive'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'nvie/vim-flake8'
+Plugin 'scrooloose/syntastic'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -137,6 +139,9 @@ let g:airline_right_alt_sep= '|'
 " Youcompleteme
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" Syntastic
+let g:syntastic_python_checkers=['flake8']
 
 "python with virtualenv support
 py << EOF
