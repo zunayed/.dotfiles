@@ -22,8 +22,15 @@ set t_Co=256
 
 filetype plugin indent on
 
-colorscheme base16-ocean
 let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme base16-ocean
+
+au BufNewFile,BufRead *.sh
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
 
 au BufNewFile,BufRead *.html
     \ set tabstop=4 |
@@ -112,6 +119,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/syntastic'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
