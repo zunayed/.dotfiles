@@ -14,7 +14,7 @@ case "$(uname -s)" in
      ;;
 
    Linux)
-    echo 'Linux'
+    echo 'Linux capslock setup'
     # remap capslock to control
     setxkbmap -option ctrl:nocaps
     export VISUAL='vim'
@@ -31,15 +31,17 @@ alias gs='git status'
 alias gl='git log'
 alias git pull='git pull -r'
 alias pyserve='python -m SimpleHTTPServer 8001'
-alias frelease='git pull -r && fab code_style:parallel=True && fab release'
+alias frelease='git pull -r && fab code_style:parallel=True && fab run_tests && fab release'
 alias pv='workon portal_2.7'
 alias dc='docker-compose'
 
-# remap capslock to control
-setxkbmap -option ctrl:nocaps
 
 # for npm modules
 export PATH="./node_modules/.bin:$PATH"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # SSH passkey
 if [[ `hostname` == "zalilinux.laf.tower-research.com" && `whoami` != "root" ]]
