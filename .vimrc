@@ -48,6 +48,13 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix |
 
+au BufNewFile,BufRead *.sh
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
+
 " When I close a tab, remove the buffer
 set nohidden
 
@@ -112,6 +119,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/syntastic'
+Plugin 'vim-airline/vim-airline-themes'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

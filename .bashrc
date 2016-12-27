@@ -61,5 +61,12 @@ fi
 
 export TERM=xterm-256color
 
+# go for ubuntu desktop
+if [[ `hostname` == "zaliubuntu.laf.tower-research.com" ]]
+then
+	export GOROOT=/spare/local/go/
+	export PATH=$PATH:$GOROOT/bin
+fi
+
 # grab bash_profile (machine specific)
 source ~/.bash_profile
