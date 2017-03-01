@@ -22,45 +22,12 @@ set t_Co=256
 
 filetype plugin indent on
 
-let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-ocean
-
-au BufNewFile,BufRead *.sh
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set expandtab |
-    \ set autoindent |
-
-au BufNewFile,BufRead *.html
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set expandtab |
-    \ set autoindent |
-
-au BufNewFile,BufRead *.js
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set expandtab |
-    \ set autoindent |
-
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=109 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
-
-au BufNewFile,BufRead *.sh
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set expandtab |
-    \ set autoindent |
+" tab settings
+set expandtab
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 " When I close a tab, remove the buffer
 set nohidden
@@ -115,19 +82,21 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-sensible'
-Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'valloric/YouCompleteMe'
-Plugin 'valloric/MatchTagAlways'
-Plugin 'pangloss/vim-javascript'
-Plugin 'tpope/vim-fugitive'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'nvie/vim-flake8'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'bling/vim-airline'
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plugin 'flazz/vim-colorschemes'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'pangloss/vim-javascript'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sensible'
+Plugin 'valloric/MatchTagAlways'
+Plugin 'valloric/YouCompleteMe'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'fatih/vim-go'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -139,6 +108,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
+" let g:NERDTreeDirArrows=0
 
 " Quit if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -156,6 +126,15 @@ let g:airline_right_alt_sep= '|'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" F6 will set breakpoint
+nnoremap <silent> <F6> <esc>oimport pudb; pudb.set_trace()<esc>
+
+" Theme
+colorscheme molokai
+
+" Autoload vimrc file
+autocmd! bufwritepost .vimrc source %
+
 " Syntastic
 let g:syntastic_python_checkers=['flake8']
 
@@ -168,9 +147,3 @@ if 'VIRTUAL_ENV' in os.environ:
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
   execfile(activate_this, dict(__file__=activate_this))
 EOF
-
-" F6 will set breakpoint
-nnoremap <silent> <F6> <esc>oimport pudb; pudb.set_trace()<esc>
-
-" Autoload vimrc file
-autocmd! bufwritepost .vimrc source %
