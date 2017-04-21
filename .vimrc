@@ -97,6 +97,7 @@ Plugin 'valloric/MatchTagAlways'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'fatih/vim-go'
+Plugin 'dracula/vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -109,6 +110,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 " let g:NERDTreeDirArrows=0
+
 
 " Quit if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -137,6 +139,15 @@ autocmd! bufwritepost .vimrc source %
 
 " Syntastic
 let g:syntastic_python_checkers=['flake8']
+
+" folding
+set foldmethod=indent
+set foldlevel=0
+set foldclose=all
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
 
 "python with virtualenv support
 py << EOF
