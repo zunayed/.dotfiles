@@ -10,9 +10,9 @@ echo -e "$INFO ----- Zunayed Ali .bashrc ----"
 case "$(uname -s)" in
 
 	Darwin)
-		echo -e '$INFO Mac OS X'
-		alias vim='mvim -v'
-		export VISUAL='mvim -v'
+		echo -e "$INFO Mac OS X"
+		# alias vim='mvim -v'
+		# export VISUAL='mvim -v'
 		;;
 
 	Linux)
@@ -39,7 +39,7 @@ shopt -s histappend                      # append to history, don't overwrite it
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 
-# ... and ignore same sucessive entries.
+# ... and ignore same successive entries.
 export HISTCONTROL=ignoreboth
 
 alias l='ls -lah'
@@ -79,11 +79,21 @@ export PATH="./node_modules/.bin:$PATH"
 # Base16 Shell
 # BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-dark.sh"
 # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# BASE16_SHELL=$HOME/.config/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# mac laptop
+if [[ `hostname` == "Zunayeds-MacBook-Pro.local" ]]
+then
+	echo -e "$INFO Running mac desktop specific commands"
+	export GOROOT=/usr/local/go/
+	export GOPATH=/Users/zunayedali/projects/go_projects
+	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+	echo -e "$INFO Setting GOROOT = $GOROOT"
+	echo -e "$INFO Setting GOPATH = $GOPATH"
+fi
 
-# go for ubuntu desktop
+# ubuntu desktop
 if [[ `hostname` == "zaliubuntu.laf.tower-research.com" ]]
 then
 	echo -e "$INFO Running ubuntu desktop specific commands"
@@ -95,7 +105,7 @@ then
 	echo -e "$INFO Setting GOPATH = $GOPATH"
 fi
 
-# go for container desktop
+# container env
 if [[ `hostname` == "tdocker-sysdev-pythondev-zali" ]]
 then
 	echo -e "$INFO Running  desktop specific commands"
@@ -109,7 +119,6 @@ then
     WRAPPER_SCRIPT="/usr/local/bin/virtualenvwrapper.sh"
 	echo -e "$INFO Sourcing $WRAPPER_SCRIPT"
     source $WRAPPER_SCRIPT
-
 fi
 
 # get current status of git repo
