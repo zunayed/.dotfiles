@@ -8,9 +8,9 @@ echo -e "$INFO ----- Zunayed Ali .bashrc ----"
 case "$(uname -s)" in
 
     Darwin)
-        echo -e '$INFO Mac OS X'
-        alias vim='mvim -v'
-        export VISUAL='mvim -v'
+        echo -e "$INFO Mac OS X"
+        # alias vim='mvim -v'
+        # export VISUAL='mvim -v'
         ;;
 
     Linux)
@@ -37,7 +37,7 @@ shopt -s histappend                      # append to history, don't overwrite it
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 
-# ... and ignore same sucessive entries.
+# ... and ignore same successive entries.
 export HISTCONTROL=ignoreboth
 
 alias l='ls -lah'
@@ -49,9 +49,19 @@ alias docker='sudo docker'
 # Base16 Shell
 # BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-dark.sh"
 # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# BASE16_SHELL=$HOME/.config/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# mac laptop
+if [[ `hostname` == "Zunayeds-MacBook-Pro.local" ]]
+then
+    echo -e "$INFO Running mac desktop specific commands"
+    export GOROOT=/usr/local/go/
+    export GOPATH=/Users/zunayedali/projects/go_projects
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    echo -e "$INFO Setting GOROOT = $GOROOT"
+    echo -e "$INFO Setting GOPATH = $GOPATH"
+fi
 
 # proxy to connect externally
 echo -e "$INFO Setting proxy to newark"
@@ -60,73 +70,78 @@ export https_proxy='http://proxy.newark.tower-research.com:3128/'
 export ftp_proxy='http://proxy.newark.tower-research.com:3128/'
 export no_proxy="tower-research.com"
 
-# Tower specific
-alias pyserve='python -m SimpleHTTPServer 8001'
-alias frelease='git pull -r && fab run_tests && fab release'
-alias pv='workon portal'
-alias dc='docker-compose'
-alias gpro='cd $GOPATH/src'
-alias kb='~/bin/kubectl'
-alias prod='ssh towerportal@systemsweb1.newark'
-alias sysdev='ssh sysdev@sysdev1.newark'
-
-if [[ `hostname` == "zalilinux.ny.tower-research.com" ]]
+# ubuntu desktop
+if [[ `hostname` == "zaliubuntu.laf.tower-research.com" ]]
 then
     echo -e "$INFO Running ubuntu desktop specific commands"
-    export GOROOT=/spare/local/go_install
-    export GOPATH=/spare/local/projects/go_projects
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-    echo -e "$INFO Setting GOROOT = $GOROOT"
-    echo -e "$INFO Setting GOPATH = $GOPATH"
 
-    alias td='sudo /spare/local/projects/go_projects/src/tdocker/tdocker'
-    alias tdnew='sudo /spare/local/projects/go_projects/src/tdocker/tdocker run -f -qa -n -p 8000:8000 -p 8001:8001 sysdev-pythondev'
-    alias tdp='sudo /spare/local/projects/go_projects/src/tdocker/tdocker attach sysdev-pythondev'
-    alias tdev='cd $GOPATH/src/tdocker'
-    alias windows='xfreerdp /w:1920 /h:1080 /d:windows /u:zali /cert-ignore +clipboard /v:rdsewr.windows.tower-research.com'
-fi
+    # Tower specific
+    alias pyserve='python -m SimpleHTTPServer 8001'
+    alias frelease='git pull -r && fab run_tests && fab release'
+    alias pv='workon portal'
+    alias dc='docker-compose'
+    alias gpro='cd $GOPATH/src'
+    alias kb='~/bin/kubectl'
+    alias prod='ssh towerportal@systemsweb1.newark'
+    alias sysdev='ssh sysdev@sysdev1.newark'
 
-# go for container desktop
-if [[ `hostname` == "tdocker-sysdev-pythondev-zali" ]]
-then
-    echo -e "$INFO Running  desktop specific commands"
-    export GOROOT="/usr/local/go"
-    export GOPATH="/spare/local/projects/go_projects"
-    export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
-    echo -e "$INFO Setting GOROOT = $GOROOT"
-    echo -e "$INFO Setting GOPATH = $GOPATH"
+    if [[ `hostname` == "zalilinux.ny.tower-research.com" ]]
+    then
+        echo -e "$INFO Running ubuntu desktop specific commands"
+        export GOROOT=/spare/local/go_install
+        export GOPATH=/spare/local/projects/go_projects
+        export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+        echo -e "$INFO Setting GOROOT = $GOROOT"
+        echo -e "$INFO Setting GOPATH = $GOPATH"
 
-    # virtualenvwrapper script
-    WRAPPER_SCRIPT="/usr/local/bin/virtualenvwrapper.sh"
-    echo -e "$INFO Sourcing $WRAPPER_SCRIPT"
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
-    export WORKON_HOME=/spare/local/projects/.virtualenvs
-    source $WRAPPER_SCRIPT
-    # export PATH="/spare/local/projects/.pyenv/versions/2.7.12/bin/:$PATH"
-    # export PATH="/apps/nttech/zali/.local/bin/:$PATH"
+        alias td='sudo /spare/local/projects/go_projects/src/tdocker/tdocker'
+        alias tdnew='sudo /spare/local/projects/go_projects/src/tdocker/tdocker run -f -qa -n -p 8000:8000 -p 8001:8001 sysdev-pythondev'
+        alias tdp='sudo /spare/local/projects/go_projects/src/tdocker/tdocker attach sysdev-pythondev'
+        alias tdev='cd $GOPATH/src/tdocker'
+        alias windows='xfreerdp /w:1920 /h:1080 /d:windows /u:zali /cert-ignore +clipboard /v:rdsewr.windows.tower-research.com'
+    fi
 
-    # portal
-    export DJANGO_SETTINGS_MODULE=towerportal.settings.development
+    # container env
+    if [[ `hostname` == "tdocker-sysdev-pythondev-zali" ]]
+    then
+        echo -e "$INFO Running  desktop specific commands"
+        export GOROOT="/usr/local/go"
+        export GOPATH="/spare/local/projects/go_projects"
+        export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
+        echo -e "$INFO Setting GOROOT = $GOROOT"
+        echo -e "$INFO Setting GOPATH = $GOPATH"
 
-    # for npm modules
-    export PATH="./node_modules/.bin:$PATH"
-fi
+        # virtualenvwrapper script
+        WRAPPER_SCRIPT="/usr/local/bin/virtualenvwrapper.sh"
+        echo -e "$INFO Sourcing $WRAPPER_SCRIPT"
+        export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
+        export WORKON_HOME=/spare/local/projects/.virtualenvs
+        source $WRAPPER_SCRIPT
+        # export PATH="/spare/local/projects/.pyenv/versions/2.7.12/bin/:$PATH"
+        # export PATH="/apps/nttech/zali/.local/bin/:$PATH"
 
-# get current status of git repo
-function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
+        # portal
+        export DJANGO_SETTINGS_MODULE=towerportal.settings.development
 
-# get git autocompletion
-if [ -f ~/.git-completion.bash ]; then
-    . ~/.git-completion.bash
-fi
+        # for npm modules
+        export PATH="./node_modules/.bin:$PATH"
+    fi
 
-export PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] @ \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;41m\]\H\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] in \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;11m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[\e[35;0m\]\$(parse_git_branch)\[\e[0m\] [\t] \n\[$(tput bold)\]>\[$(tput sgr0)\]>> \[$(tput sgr0)\]"
+    # get current status of git repo
+    function parse_git_branch {
+        git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    }
 
-# nodejs version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    # get git autocompletion
+    if [ -f ~/.git-completion.bash ]; then
+        . ~/.git-completion.bash
+    fi
 
-echo -e "$INFO ----- End .bashrc ----"
+    export PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] @ \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;41m\]\H\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] in \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;11m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[\e[35;0m\]\$(parse_git_branch)\[\e[0m\] [\t] \n\[$(tput bold)\]>\[$(tput sgr0)\]>> \[$(tput sgr0)\]"
+
+    # nodejs version manager
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+    echo -e "$INFO ----- End .bashrc ----"
