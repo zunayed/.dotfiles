@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# If not running interactively, don't do anything
+# Using echo in a .bashrc will break scp, as scp expects
+# to see its protocol data over the stdin/stdout channels.
+case $- in
+    *i*) ;;
+    *) return;;
+esac
+
 GREEN='\033[1;32m'
 NC='\033[0m' # No Color
 INFO=$GREEN[INFO]$NC
@@ -18,10 +26,6 @@ fi
 
 export PS1="\[\033[38;5;14m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] @ \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;41m\]\H\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] in \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;11m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[\e[35;0m\]\$(parse_git_branch)\[\e[0m\] [\t] \n\[$(tput bold)\]>\[$(tput sgr0)\]>> \[$(tput sgr0)\]"
 
-# nodejs version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 case "$(uname -s)" in
 
@@ -57,7 +61,7 @@ export HISTCONTROL=ignoredups
 # ... and ignore same successive entries.
 export HISTCONTROL=ignoreboth
 
-alias l='ls -lah'
+alias l='ls -lah --color=auto'
 alias gs='git status'
 alias gl='git log'
 alias gp='git pull -r'
@@ -79,7 +83,7 @@ then
     echo -e "$INFO Running mac desktop specific commands"
     export GOROOT=/usr/local/go/
     export GOPATH=/Users/zunayedali/projects/go_projects
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
     echo -e "$INFO Setting GOROOT = $GOROOT"
     echo -e "$INFO Setting GOPATH = $GOPATH"
 fi

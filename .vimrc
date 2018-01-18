@@ -91,15 +91,16 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'flazz/vim-colorschemes'
-Plugin 'gmarik/Vundle.vim'
+" Plugin 'gmarik/Vundle.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
 Plugin 'valloric/MatchTagAlways'
-" Plugin 'valloric/YouCompleteMe'
+Plugin 'valloric/YouCompleteMe'
 " Plugin 'shougo/neocomplete.vim'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'fatih/vim-go'
@@ -114,11 +115,11 @@ filetype plugin indent on    " required
 
 " Control P
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/node_modules/*,*/venv/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/node_modules/*,*/venv/*,*/.vscode/*
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '.vscode', '.git']
 " let g:NERDTreeDirArrows=0
 
 
