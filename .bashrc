@@ -31,8 +31,9 @@ case "$(uname -s)" in
 
     Darwin)
         echo -e "$INFO Mac OS X"
-        # alias vim='mvim -v'
-        # export VISUAL='mvim -v'
+        alias vim='nvim'
+        export VISUAL='nvim'
+        export EDITOR='vim'
         ;;
 
     Linux)
@@ -61,27 +62,19 @@ export HISTCONTROL=ignoredups
 # ... and ignore same successive entries.
 export HISTCONTROL=ignoreboth
 
-alias l='ls -lah --color=auto'
-alias gs='git status'
-alias gl='git log'
+alias l='ls -lahG'
+alias gs='git status .'
 alias gp='git pull -r'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ."
 alias docker='sudo docker'
-
-# Tower specific
 alias pyserve='python -m SimpleHTTPServer 8001'
-alias frelease='git pull -r && fab run_tests && fab release'
-alias pv='workon portal'
-alias dc='docker-compose'
-alias gpro='cd $GOPATH/src'
-alias kb='~/bin/kubectl'
-alias prod='ssh towerportal@systemsweb1.newark'
-alias dub02='ssh zali@dockerub02.skae'
-alias grootdev='ssh sefodev@sefodev1.skae'
-alias grootqa='ssh sefodev@sysdev1.newark'
-alias grootprod='ssh sefoprod@sefoprod1.newark'
-alias sysdev='ssh sysdev@sysdev1.newark'
-alias sysbuild='ssh sysdev@sysbuildbot.newark'
-alias gsync='~/Downloads/gdrive-linux-x64 sync upload ~/notes/ 131qUQsDKlniZed3bKnIENiw2xTCctJ9o'
+alias gopro='cd $GOPATH/src'
+alias rdev='ssh dev.buzzfeed.io'
+alias gsync='gdrive sync upload ~/Notes/ 131qUQsDKlniZed3bKnIENiw2xTCctJ9o'
+alias cat='bat'
+
+# set vi mode for bash
+set -o vi
 
 # mac laptop
 if [[ `hostname` == "Zunayeds-MacBook-Pro.local" ]]
@@ -94,72 +87,4 @@ then
     echo -e "$INFO Setting GOPATH = $GOPATH"
 fi
 
-if [[ `hostname` == "zalilinux.laf.tower-research.com" ]]
-then
-    # proxy to connect externally
-    echo -e "$INFO Setting proxy to newark"
-    export http_proxy='http://proxy.newark.tower-research.com:3128/'
-    export https_proxy='http://proxy.newark.tower-research.com:3128/'
-    export ftp_proxy='http://proxy.newark.tower-research.com:3128/'
-    export no_proxy="tower-research.com"
-
-    echo -e "$INFO Running ubuntu desktop specific commands"
-    export GOROOT=/spare/local/go_install
-    export GOPATH=/spare/local/projects/go_projects
-    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-    export PATH=~/bin/:$PATH
-    echo -e "$INFO Setting GOROOT = $GOROOT"
-    echo -e "$INFO Setting GOPATH = $GOPATH"
-
-    alias td='sudo /spare/local/projects/go_projects/src/tdocker/tdocker'
-    alias tdnew='sudo /spare/local/projects/go_projects/src/tdocker/tdocker run -qa -n -p 8000:8000 -p 8001:8001 sysdev-pythondev'
-    alias tdp='sudo /spare/local/projects/go_projects/src/tdocker/tdocker attach sysdev-pythondev'
-    alias tdev='cd $GOPATH/src/tdocker'
-    alias windows='xfreerdp /w:1920 /h:1080 /d:windows /u:zali /cert-ignore +clipboard /v:rdsewr.windows.tower-research.com'
-
-
-fi
-
-# container env
-if [[ `hostname` == "tdocker-sysdev-pythondev-zali" ]]
-then
-    echo -e "$INFO Running  desktop specific commands"
-    export GOROOT="/usr/local/go"
-    export GOPATH="/spare/local/projects/go_projects"
-    export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
-    echo -e "$INFO Setting GOROOT = $GOROOT"
-    echo -e "$INFO Setting GOPATH = $GOPATH"
-
-    # virtualenvwrapper script
-    WRAPPER_SCRIPT="/usr/local/bin/virtualenvwrapper.sh"
-    echo -e "$INFO Sourcing $WRAPPER_SCRIPT"
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
-    export WORKON_HOME=/spare/local/projects/.virtualenvs
-    source $WRAPPER_SCRIPT
-    # export PATH="/spare/local/projects/.pyenv/versions/2.7.12/bin/:$PATH"
-    # export PATH="/apps/nttech/zali/.local/bin/:$PATH"
-
-    # portal
-    export DJANGO_SETTINGS_MODULE=towerportal.settings.development
-
-    # for npm modules
-    # export PATH="./node_modules/.bin:$PATH"
-
-    # nodejs version manager
-    export NVM_DIR="$HOME/.nvm"
-    # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-# logbook
-function lb() {
-    vim ~/logbook/$(date '+%Y-%m-%d').md
-}
-
 echo -e "$INFO ----- End .bashrc ----"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/apps/nttech/zali/Downloads/google-cloud-sdk/path.bash.inc' ]; then source '/apps/nttech/zali/Downloads/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/apps/nttech/zali/Downloads/google-cloud-sdk/completion.bash.inc' ]; then source '/apps/nttech/zali/Downloads/google-cloud-sdk/completion.bash.inc'; fi
