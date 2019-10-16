@@ -1,3 +1,13 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
+
+" Initialize plugin system
+call plug#end()
+
 set background=dark
 set autoindent
 set complete-=i
@@ -20,7 +30,9 @@ set spell
 set term=screen-256color
 set t_Co=256
 
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 
 " tab settings
 set expandtab
@@ -76,50 +88,33 @@ map <left> <nop>
 map <right> <nop>
 
 " on save any: trim trailing whitespace
-autocmd! BufWrite * mark ' | silent! %s/\s\+$// | norm '''
+" autocmd! BufWrite * mark ' | silent! %s/\s\+$// | norm '''
 
-" Plugins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
 " let Vundle manage Vundle, required
-Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
-Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-Plugin 'flazz/vim-colorschemes'
-" Plugin 'gmarik/Vundle.vim'
-Plugin 'nvie/vim-flake8'
-Plugin 'pangloss/vim-javascript'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'valloric/MatchTagAlways'
-" Plugin 'shougo/neocomplete.vim'
-Plugin 'ajh17/VimCompletesMe'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'fatih/vim-go'
-Plugin 'posva/vim-vue'
-Plugin 'kien/ctrlp.vim'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'joshdick/onedark.vim'
-Plugin 'junegunn/goyo.vim'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" Control P
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/node_modules/*,*/venv/*,*/.vscode/*
+" Plugin 'airblade/vim-gitgutter'
+" Plugin 'bling/vim-airline'
+" Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+" Plugin 'flazz/vim-colorschemes'
+" Plugin 'nvie/vim-flake8'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-sensible'
+" Plugin 'tpope/vim-surround'
+" Plugin 'valloric/MatchTagAlways'
+" Plugin 'ajh17/VimCompletesMe'
+" Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'fatih/vim-go'
+" Plugin 'posva/vim-vue'
+" Plugin 'kien/ctrlp.vim'
+" Plugin 'sheerun/vim-polyglot'
+" Plugin 'joshdick/onedark.vim'
+" Plugin 'junegunn/goyo.vim'
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeIgnore = ['\.pyc$', '.vscode', '.git']
+let NERDTreeIgnore = ['\.pyc$', '.vscode', '.git', 'node_modules']
 " let g:NERDTreeDirArrows=0
 
 
@@ -135,55 +130,14 @@ let g:airline_righ_sep=''
 let g:airline_left_alt_sep= '|'
 let g:airline_right_alt_sep= '|'
 
-" Youcompleteme
-" let g:ycm_autoclose_preview_window_after_completion=1
-" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 " F6 will set breakpoint
 nnoremap <silent> <F6> <esc>oimport pudb; pudb.set_trace()<esc>
 
 " Theme
-colorscheme onedark
-" colorscheme molokai
+colorscheme PaperColor
 
 " Autoload vimrc file
 autocmd! bufwritepost .vimrc source %
 
-" Syntastic
-let g:syntastic_python_checkers=['flake8']
-
-" folding
-" set foldmethod=indent
-" set foldlevel=0
-" set foldclose=all
-" inoremap <F9> <C-O>za
-" nnoremap <F9> za
-" onoremap <F9> <C-C>za
-" vnoremap <F9> zf
-
-"python with virtualenv support
-"py << EOF
-"import os
-"import sys
-"if 'VIRTUAL_ENV' in os.environ:
-"  project_base_dir = os.environ['VIRTUAL_ENV']
-"  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"  execfile(activate_this, dict(__file__=activate_this))
-"EOF
-
-" From onedark  github page needed for 24-bit color support
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+" ctrl p ignore certain files
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']

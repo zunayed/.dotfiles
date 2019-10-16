@@ -31,8 +31,7 @@ case "$(uname -s)" in
 
     Darwin)
         echo -e "$INFO Mac OS X"
-        alias vim='nvim'
-        export VISUAL='nvim'
+        export VISUAL='vim'
         export EDITOR='vim'
         ;;
 
@@ -69,22 +68,14 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 alias docker='sudo docker'
 alias pyserve='python -m SimpleHTTPServer 8001'
 alias gopro='cd $GOPATH/src'
-alias rdev='ssh dev.buzzfeed.io'
 alias gsync='gdrive sync upload ~/Notes/ 131qUQsDKlniZed3bKnIENiw2xTCctJ9o'
 alias cat='bat'
 
 # set vi mode for bash
 set -o vi
 
-# mac laptop
-if [[ `hostname` == "Zunayeds-MacBook-Pro.local" ]]
-then
-    echo -e "$INFO Running mac desktop specific commands"
-    export GOROOT=/usr/local/go/
-    export GOPATH=/Users/zunayedali/projects/go_projects
-    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-    echo -e "$INFO Setting GOROOT = $GOROOT"
-    echo -e "$INFO Setting GOPATH = $GOPATH"
-fi
+# nvm node version manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 
 echo -e "$INFO ----- End .bashrc ----"
