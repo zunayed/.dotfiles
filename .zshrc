@@ -13,3 +13,19 @@ source /home/linuxbrew/.linuxbrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # fuzzy search shel
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias l='ls -lahG'
+alias gs='git status .'
+alias gp='git pull -r'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit ."
+# alias docker='sudo docker'
+alias pyserve='python -m SimpleHTTPServer 8001'
+# alias gopro='cd $GOPATH/src'
+# alias gsync='gdrive sync upload ~/Notes/ 131qUQsDKlniZed3bKnIENiw2xTCctJ9o'
+alias cat='bat'
+
+# set vi mode for bash
+set -o vi
+
+export VISUAL='nvim'
+export EDITOR='nvim'
